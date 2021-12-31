@@ -1,0 +1,12 @@
+# sys
+.git
+.gitattributes
+.vs
+
+# folders
+bin
+Luna/obj
+
+# files
+Config.resx
+Luna/Config.Designer.cs
