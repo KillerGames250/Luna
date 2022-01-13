@@ -56,7 +56,10 @@ namespace Luna
 
         private void Client_OnMessageReceived(object sender, OnMessageReceivedArgs e)
         {
-            client.SendMessage(e.ChatMessage.Channel,translator.Translate(e.ChatMessage.Channel, e.ChatMessage.Message));
+            if (!e.ChatMessage.Message.StartsWith('!'))
+            {
+                client.SendMessage(e.ChatMessage.Channel, translator.Translate(e.ChatMessage.Channel, e.ChatMessage.Message).ToString());
+            }
         }
 
         private void Client_OnConnected(object sender, OnConnectedArgs e)
