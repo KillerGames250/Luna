@@ -4,10 +4,10 @@ namespace Luna
 {
     class BotCommands:Bot
     {
-        public static String Commands(String command, String user_id, String user_name, String display_name, String channel)
+        public static String Commands(String command, String user_id, String user_name, String display_name)
         {
             Database db = new();
-            switch (command)
+            switch (TextFormatting.CommandFormat(command))
             {
                 case "join":
                     if (db.BotJoin(user_id, user_name.ToLower()) == 1)
@@ -45,6 +45,26 @@ namespace Luna
                     if (db.AutoBanDisable(user_id) == 1)
                     {
                         return "Auto ban is disable in your channel";
+                    }
+                    else
+                    {
+                        return "Error to disable";
+                    }
+
+                case "enabletranslation":
+                    if (Translator.AddChannelLanguage(user_name.ToLower(), user_id, command.Substring((command.IndexOf('[') + 1), 2))== 1)
+                    {
+                        return "";
+                    }
+                    else
+                    {
+                        return "Error to enable";
+                    }
+
+                case "disabletranslation":
+                    if (Translator.RemoveChannelLanguage(user_name.ToLower(), user_id) == 1)
+                    {
+                        return "";
                     }
                     else
                     {

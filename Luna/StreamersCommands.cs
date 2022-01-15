@@ -36,7 +36,7 @@ namespace Luna
                     }
 
                 case "reset":
-                    if (command.Contains("="))
+                    if (command.Contains('='))
                     {
                         Console.WriteLine(command.Substring(command.IndexOf('=') + 1));
                         int temp = Int32.Parse(command.Substring(command.IndexOf('=') + 1));

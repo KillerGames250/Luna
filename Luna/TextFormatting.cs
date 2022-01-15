@@ -6,7 +6,7 @@ namespace Luna
     {
         public static String CommandFormat(String command)
         {
-            if (command.Contains(" "))
+            if (command.Contains(' '))
             {
                 command = command.Substring((command.IndexOf('!') + 1), command.IndexOf(' ') - command.IndexOf('!') - 1);
                 command = command.ToLower();
@@ -40,7 +40,7 @@ namespace Luna
             }
             if (mensage.Contains("{count}"))
             {
-                if (command.Contains("+"))
+                if (command.Contains('+'))
                 {
                     int temp = Int32.Parse(command.Substring(command.IndexOf('+') + 1));
                     int counter = Int32.Parse(db.CounterGet(channel, CommandFormat(command))) + temp;

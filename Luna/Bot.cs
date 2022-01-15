@@ -58,7 +58,7 @@ namespace Luna
         {
             if (!e.ChatMessage.Message.StartsWith('!'))
             {
-                client.SendMessage(e.ChatMessage.Channel, translator.Translate(e.ChatMessage.Channel, e.ChatMessage.Message).ToString());
+                client.SendMessage(e.ChatMessage.Channel,("@"+e.ChatMessage.DisplayName + " " + translator.Translate(e.ChatMessage.Channel, e.ChatMessage.Message).ToString()));
             }
         }
 

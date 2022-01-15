@@ -134,5 +134,42 @@ namespace Luna
         {
             return PG_Read($"SELECT counter_get('{channel}','{command_name}')");
         }
+
+        public int TranslationEnable(String channel_id, String language)
+        {
+            return Convert.ToInt32(PG_Read($"SELECT translation_enable('{channel_id}','{language}')"));
+        }
+
+        public int TranlationDisable(String channel_id)
+        {
+            return Convert.ToInt32(PG_Read($"SELECT translation_disable('{channel_id}')"));
+        }
+
+        public List<ChannelLanguage> ChannelsWhereTranlationEnable()
+        {
+            List<ChannelLanguage> aux = new();
+            String temp = "";
+            try
+            {
+                Console.WriteLine("Start:");
+                connection.Open();
+                NpgsqlCommand command = new("SELECT teste()", connection);
+                NpgsqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    temp = reader.GetString(0);
+                    ChannelLanguage cl = new(temp.Substring(0,(temp.IndexOf(','))), temp.Substring((temp.IndexOf(',') + 1), 2));
+                    aux.Add(cl);
+                }
+                connection.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            connection.Close();
+            Console.WriteLine("Done.");
+            return aux;
+        }
     }
 }

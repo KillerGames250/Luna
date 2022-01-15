@@ -12,7 +12,7 @@ namespace Luna
             String user_name = display_name.ToLower();
             if (channel.Equals(Config.BOT_USERNAME))
             {
-                mensage = BotCommands.Commands(TextFormatting.CommandFormat(command), user_id, user_name, display_name, channel);
+                mensage = BotCommands.Commands(command, user_id, user_name, display_name);
             }
             if (channel.Equals(user_name))
             {
