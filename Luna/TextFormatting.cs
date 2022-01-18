@@ -19,6 +19,16 @@ namespace Luna
             }
         }
 
+        public static String TranslationMessageWhithoutSpacesFormat(String message)
+        {
+            return message.Replace(' ', '´');
+        }
+
+        public static String TranslationMessageNormalFormat(String message)
+        {
+            return message.Replace('´', ' ');
+        }
+
         public static String MenssageFormat(String mensage, String user_name, String command, String channel)
         {
             Database db = new();

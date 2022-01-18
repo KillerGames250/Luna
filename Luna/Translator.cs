@@ -10,7 +10,7 @@ namespace Luna
         static HttpClient httpclient = new();
         static List<ChannelLanguage> teste = new(db.ChannelsWhereTranlationEnable());
 
-        public String Translate(String channel, String menssage)
+        public String Translate(String channel, String message)
         {
 
             try
@@ -20,12 +20,12 @@ namespace Luna
                 {
                     return "";
                 }
-                HttpResponseMessage response = httpclient.GetAsync($"https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl={lang}&dt=t&q={menssage}").Result;
+                HttpResponseMessage response = httpclient.GetAsync($"https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl={lang}&dt=t&q={TextFormatting.TranslationMessageWhithoutSpacesFormat(message)}").Result;
                 String translation = response.Content.ReadAsStringAsync().Result;
                 translation = translation.Substring(4, translation.IndexOf("\"", 4, StringComparison.Ordinal) - 4);
-                if (!translation.Equals(menssage))
+                if (!translation.Equals(message))
                 {
-                    return translation;
+                    return TextFormatting.TranslationMessageNormalFormat(translation);
                 }
                 else
                 {
