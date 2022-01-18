@@ -153,7 +153,7 @@ namespace Luna
             {
                 Console.WriteLine("Start:");
                 connection.Open();
-                NpgsqlCommand command = new("SELECT teste()", connection);
+                NpgsqlCommand command = new("SELECT translation_list_channel_language()", connection);
                 NpgsqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
