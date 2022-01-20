@@ -34,7 +34,7 @@ namespace Luna
                 case "enableban":
                     if (db.AutoBanEnable(user_id) == 1)
                     {
-                        return "Auto ban is enable in your channel";
+                        return "Auto ban is enabled in your channel";
                     }
                     else
                     {
@@ -44,7 +44,7 @@ namespace Luna
                 case "disableban":
                     if (db.AutoBanDisable(user_id) == 1)
                     {
-                        return "Auto ban is disable in your channel";
+                        return "Auto ban is disabled in your channel";
                     }
                     else
                     {
@@ -52,9 +52,9 @@ namespace Luna
                     }
 
                 case "enabletranslation":
-                    if (Translator.AddChannelLanguage(user_name.ToLower(), user_id, command.Substring((command.IndexOf('[') + 1), 2))== 1)
+                    if (Translator.AddChannelLanguage(user_name.ToLower(), user_id, command.Substring((command.IndexOf('[') + 1), 2)) == 1)
                     {
-                        return "";
+                        return "Message translation is enabled in your channel";
                     }
                     else
                     {
@@ -64,7 +64,7 @@ namespace Luna
                 case "disabletranslation":
                     if (Translator.RemoveChannelLanguage(user_name.ToLower(), user_id) == 1)
                     {
-                        return "";
+                        return "Message translation is disabled in your channel";
                     }
                     else
                     {

@@ -8,7 +8,7 @@ namespace Luna
     {
         static Database db = new();
         static HttpClient httpclient = new();
-        static List<ChannelLanguage> teste = new(db.ChannelsWhereTranlationEnable());
+        static List<ChannelLanguage> channel_language = new(db.ChannelsWhereTranlationEnable());
 
         public String Translate(String channel, String message)
         {
@@ -70,9 +70,12 @@ namespace Luna
             ChannelLanguage temp = new(channel, language);
             try
             {
-                teste.Add(temp);
-                db.TranslationEnable(channel_id, language);
-                return 1;
+                if (db.TranslationEnable(channel_id, language).Equals(1))
+                {
+                    channel_language.Add(temp);
+                    return 1;
+                }
+                return 0;
             }
             catch (Exception e)
             {
@@ -85,9 +88,12 @@ namespace Luna
         {
             try
             {
-                teste.RemoveAt(SearchUser(channel));
-                db.TranlationDisable(channel_id);
-                return 1;
+                if (db.TranlationDisable(channel_id).Equals(1))
+                {
+                    channel_language.RemoveAt(SearchUser(channel));
+                    return 1;
+                }
+                return 0;
             }
             catch (Exception e)
             {
