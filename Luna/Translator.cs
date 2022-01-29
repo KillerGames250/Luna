@@ -41,7 +41,7 @@ namespace Luna
 
         private String SearchLanguage(String channel)
         {
-            foreach (ChannelLanguage channel_language in teste)
+            foreach (ChannelLanguage channel_language in channel_language)
             {
                 if (channel_language.GetChannel().Equals(channel))
                 {
@@ -54,7 +54,7 @@ namespace Luna
         private static int SearchUser(String channel)
         {
             int i = 0;
-            foreach (ChannelLanguage channel_language in teste)
+            foreach (ChannelLanguage channel_language in channel_language)
             {
                 if (channel_language.GetChannel().Equals(channel))
                 {
