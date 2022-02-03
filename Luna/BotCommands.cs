@@ -6,7 +6,6 @@ namespace Luna
     {
         public static String Commands(String command, String user_id, String user_name, String display_name)
         {
-            Database db = new();
             switch (TextFormatting.CommandFormat(command))
             {
                 case "join":
