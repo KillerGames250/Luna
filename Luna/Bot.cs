@@ -11,7 +11,7 @@ namespace Luna
     class Bot
     {
         Timer timer = new();
-        Database db = new();
+        public static Database db = new();
         Commands cmd = new();
         Translator translator = new();
         ConnectionCredentials credentials = new(Config.BOT_USERNAME, Config.OAUTH_TOKEN);
@@ -58,7 +58,11 @@ namespace Luna
         {
             if (!e.ChatMessage.Message.StartsWith('!'))
             {
-                client.SendMessage(e.ChatMessage.Channel,(translator.Translate(e.ChatMessage.Channel, e.ChatMessage.Message).ToString() + $" .[By {e.ChatMessage.DisplayName}]"));
+                String message = translator.Translate(e.ChatMessage.Channel, e.ChatMessage.Message).ToString();
+                if (!message.Equals(""))
+                {
+                    client.SendMessage(e.ChatMessage.Channel, (message + $" .[By {e.ChatMessage.DisplayName}]"));
+                }
             }
         }
 
@@ -91,7 +95,7 @@ namespace Luna
         {
             if (DateTime.Now.ToString("HH:mm").Equals("22:00"))
             {
-                List<String> channels= db.ChannelsWhereAutoBanEnable();
+                List<String> channels = db.ChannelsWhereAutoBanEnable();
                 List<String> bannedusers = db.BannedUsersList();
                 foreach (String channel in channels)
                 {

@@ -4,8 +4,6 @@ namespace Luna
 {
     class Commands
     {
-        Database db = new();
-        
         public String Command(String channel, String display_name, String user_id, String command)
         {
             String mensage = "";

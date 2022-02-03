@@ -52,7 +52,7 @@ namespace Luna
                     }
 
                 case "enabletranslation":
-                    if (Translator.AddChannelLanguage(user_name.ToLower(), user_id, command.Substring((command.IndexOf('[') + 1), 2)) == 1)
+                    if (Translator.AddChannelLanguage(user_name.ToLower(), user_id, command.Substring((command.IndexOf(' ') + 1), 5)) == 1)
                     {
                         return "Message translation is enabled in your channel";
                     }
