@@ -93,18 +93,7 @@ namespace Luna
 
         private void OnTimerEvent(object sender, ElapsedEventArgs e)
         {
-            if (DateTime.Now.ToString("HH:mm").Equals("22:00"))
-            {
-                List<String> channels = db.ChannelsWhereAutoBanEnable();
-                List<String> bannedusers = db.BannedUsersList();
-                foreach (String channel in channels)
-                {
-                    foreach (String users in bannedusers)
-                    {
-                        client.SendMessage(channel, $"/ban {users}");
-                    }
-                }
-            }
+            TimerEvents.Events();
         }
     }
 }
