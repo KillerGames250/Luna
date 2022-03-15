@@ -19,7 +19,7 @@ namespace Luna
             }
             if (mensage.Equals(""))
             {
-                mensage = db.CommandGet(channel, TextFormatting.CommandFormat(command)); // User commands
+                mensage = db.CommandGet(channel, TextFormatting.CommandFormat(command));
                 if (mensage.Equals(""))
                 {
                     mensage = GlobalCommands.Commands(TextFormatting.CommandFormat(command), channel);

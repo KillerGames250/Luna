@@ -38,9 +38,7 @@ namespace Luna
                 case "reset":
                     if (command.Contains('='))
                     {
-                        Console.WriteLine(command.Substring(command.IndexOf('=') + 1));
                         int temp = Int32.Parse(command.Substring(command.IndexOf('=') + 1));
-                        Console.WriteLine(command.Substring(command.IndexOf(' ') + 1, (command.IndexOf('=') - command.IndexOf(' ') - 1)));
                         if (db.CounterSet(temp, channel, command.Substring(command.IndexOf(' ') + 1, (command.IndexOf('=') - command.IndexOf(' ') - 1))) ==1) 
                         {
                             return "successfully reset"; 
@@ -60,6 +58,16 @@ namespace Luna
                         {
                             return "Error to reset";
                         }
+                    }
+
+                case "createlottery":
+                    if (db.CreateLottery(user_id, command.Substring(command.IndexOf(' ') + 1, command.LastIndexOf(' ') - command.IndexOf(' ') - 1), Convert.ToInt32(command.Substring(command.LastIndexOf(' ') + 1))) == 1)
+                    {
+                        return "Good luck to all";
+                    }
+                    else
+                    {
+                        return "Error to create";
                     }
 
                 default:

@@ -2,7 +2,6 @@
 using TwitchLib.Client;
 using TwitchLib.Client.Events;
 using TwitchLib.Client.Models;
-using System.Collections.Generic;
 using TwitchLib.Communication.Events;
 using System.Timers;
 

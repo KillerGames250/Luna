@@ -171,5 +171,10 @@ namespace Luna
             Console.WriteLine("Done.");
             return aux;
         }
+
+        public int CreateLottery(String channel_id, String rafle_name, int winners) 
+        {
+            return Convert.ToInt32(PG_Read($"SELECT lottery_create( '{channel_id}', '{rafle_name}', '{winners}' )"));
+        }
     }
 }
