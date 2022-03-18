@@ -15,6 +15,16 @@ namespace Luna
                 case "hi":
                     return "Heya {user} !!!";
 
+                case "ticket":
+                    if (db.JoinLottery() == 1)
+                    {
+                        return "Good luck {user}";
+                    }
+                    else
+                    {
+                        return "Error to buy a ticket";
+                    }
+
                 default:
                     return "";
             }

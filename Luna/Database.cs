@@ -172,9 +172,24 @@ namespace Luna
             return aux;
         }
 
-        public int CreateLottery(String channel_id, String rafle_name, int winners) 
+        public int CreateLottery(String channel_id, String lottery_name, int winners) 
         {
-            return Convert.ToInt32(PG_Read($"SELECT lottery_create( '{channel_id}', '{rafle_name}', '{winners}' )"));
+            return Convert.ToInt32(PG_Read($"SELECT lottery_create( '{channel_id}', '{lottery_name}', '{winners}' )"));
+        }
+
+        public int DeleteLottery(String chnnel_id, String lottery_name)
+        {
+            return Convert.ToInt32(PG_Read(""));
+        }
+
+        public int JoinLottery()
+        {
+            return 0;
+        }
+
+        public int LotteryWinner()
+        {
+            return 0;
         }
     }
 }

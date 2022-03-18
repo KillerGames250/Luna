@@ -70,6 +70,26 @@ namespace Luna
                         return "Error to create";
                     }
 
+                case "deletelottery":
+                    if (db.DeleteLottery(user_id, command.Substring(command.IndexOf(' ') + 1)) == 1)
+                    {
+                        return "Lottery successfully deletted";
+                    }
+                    else
+                    {
+                        return "Error to delete";
+                    }
+
+                case "lotterywinner":
+                    if (true)
+                    {
+                        return "";
+                    }
+                    else
+                    {
+                        return "";
+                    }
+
                 default:
                     return "";
             }
