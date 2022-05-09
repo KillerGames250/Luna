@@ -3,19 +3,20 @@ using System.Collections.Generic;
 
 namespace Luna
 {
-    internal class TimerEvents:Bot
+    internal class TimerEvents
     {
-        public static void Events()
+        LiveMonitor monitor = new();
+        public void Events()
         {
             if (DateTime.Now.ToString("HH:mm").Equals(Config.TIME1) || DateTime.Now.ToString("HH:mm").Equals(Config.TIME2))
             {
-                List<String> channels = db.ChannelsWhereAutoBanEnable();
-                List<String> bannedusers = db.BannedUsersList();
+                List<String> channels = Bot.db.ChannelsWhereAutoBanEnable();
+                List<String> bannedusers = Bot.db.BannedUsersList();
                 foreach (String channel in channels)
                 {
                     foreach (String users in bannedusers)
                     {
-                        client.SendMessage(channel, $"/ban {users}");
+                        Bot.client.SendMessage(channel, $"/ban {users}");
                     }
                 }
             }

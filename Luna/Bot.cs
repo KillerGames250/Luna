@@ -13,8 +13,9 @@ namespace Luna
         public static Database db = new();
         Commands cmd = new();
         Translator translator = new();
-        ConnectionCredentials credentials = new(Config.BOT_USERNAME, Config.OAUTH_TOKEN);
+        ConnectionCredentials credentials = new(Config.BOT_USERNAME, Config.API_CHAT_TOKEN);
         public  static TwitchClient client = new();
+        TimerEvents timerEvents = new();
 
         public void Connect()
         {
@@ -92,7 +93,7 @@ namespace Luna
 
         private void OnTimerEvent(object sender, ElapsedEventArgs e)
         {
-            TimerEvents.Events();
+            timerEvents.Events();
         }
     }
 }

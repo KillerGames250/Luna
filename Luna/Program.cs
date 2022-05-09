@@ -4,30 +4,37 @@ namespace Luna
 {
     class Program
     {
+        Bot luna = new();
         static void Main()
         {
-        start:
             Bot luna = new();
-            luna.Connect();
-        opError:
+            LiveMonitor liveMonitor = new();
+        start:
             String op = Console.ReadLine();
             switch (op.ToLower())
             {
+                case "start":
+                    luna.Connect();
+                    liveMonitor.monitorStart();
+                    goto start;
+
                 case "reboot" :
                     luna.Disconnect();
+                    liveMonitor.monitorStop();
                     goto start;
 
                 case "clear" :
                     Console.Clear();
-                    goto opError;
+                    goto start;
 
                 case "shutdown" :
                     luna.Disconnect();
+                    liveMonitor.monitorStop();
                     break;
 
                 default:
                     Console.WriteLine(op + "Command not found");
-                    goto opError;
+                    goto start;
             }
         }
     }

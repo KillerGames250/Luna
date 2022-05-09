@@ -2,14 +2,14 @@
 
 namespace Luna
 {
-    class BotCommands:Bot
+    class BotCommands
     {
         public static String Commands(String command, String user_id, String user_name, String display_name)
         {
             switch (TextFormatting.CommandFormat(command))
             {
                 case "join":
-                    if (db.BotJoin(user_id, user_name.ToLower()) == 1)
+                    if (Bot.db.BotJoin(user_id, user_name.ToLower()) == 1)
                     {
                         Bot.ChannelJoin(display_name);
                         return $"Welcome to the group @{display_name}";
@@ -20,7 +20,7 @@ namespace Luna
                     }
 
                 case "leave":
-                    if (db.BotLeave(user_id) == 1)
+                    if (Bot.db.BotLeave(user_id) == 1)
                     {
                         Bot.ChannelLeave(display_name);
                         return $"See you @{display_name}";
@@ -31,7 +31,7 @@ namespace Luna
                     }
 
                 case "enableban":
-                    if (db.AutoBanEnable(user_id) == 1)
+                    if (Bot.db.AutoBanEnable(user_id) == 1)
                     {
                         return "Auto ban is enabled in your channel";
                     }
@@ -41,7 +41,7 @@ namespace Luna
                     }
 
                 case "disableban":
-                    if (db.AutoBanDisable(user_id) == 1)
+                    if (Bot.db.AutoBanDisable(user_id) == 1)
                     {
                         return "Auto ban is disabled in your channel";
                     }
