@@ -19,18 +19,18 @@ namespace Luna
             twitchAPI.Settings.AccessToken = Config.API_MONITOR_TOKEN;
             twitchAPI.Settings.Secret = Config.API_MONITOR_SECRET;
             liveMonitor = new(twitchAPI, 60);
-            List<String> list = new List<String>() {"lunachan250", "killergames250", "caixinhatv" , "tiekoi"};
+            List<String> list = new() {Config.CHANNEL1, Config.CHANNEL2, Config.CHANNEL3, Config.CHANNEL4, Config.CHANNEL5, Config.CHANNEL6};
             liveMonitor.SetChannelsByName(list);
         }
 
-        public void monitorStart()
+        public void MonitorStart()
         {
             liveMonitor.OnStreamOnline += LiveMonitor_OnStreamOnline;
             liveMonitor.OnStreamOffline += LiveMonitor_OnStreamOffline;
             liveMonitor.Start();
         }
 
-        public void monitorStop()
+        public void MonitorStop()
         {
             liveMonitor.Stop();
         }
@@ -38,12 +38,13 @@ namespace Luna
         private void LiveMonitor_OnStreamOnline(object sender, OnStreamOnlineArgs e)
         {
             livesOnLine.Add(e.Channel);
+            Console.WriteLine(e.Channel+" online");
         }
 
         private void LiveMonitor_OnStreamOffline(object sender, OnStreamOfflineArgs e)
         {
             livesOnLine.Remove(e.Channel);
+            Console.WriteLine(e.Channel + " offline");
         }
-
     }
 }

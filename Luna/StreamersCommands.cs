@@ -81,13 +81,14 @@ namespace Luna
                     }
 
                 case "lotterywinner":
-                    if (true)
+                    String aux = db.LotteryWinner(user_id, command.Substring(command.IndexOf(' ')));
+                    if (aux != "")
                     {
-                        return "";
+                        return aux;
                     }
                     else
                     {
-                        return "";
+                        return "Error to take a winner";
                     }
 
                 default:

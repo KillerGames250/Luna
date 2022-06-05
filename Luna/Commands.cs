@@ -22,7 +22,7 @@ namespace Luna
                 mensage = db.CommandGet(channel, TextFormatting.CommandFormat(command));
                 if (mensage.Equals(""))
                 {
-                    mensage = GlobalCommands.Commands(TextFormatting.CommandFormat(command), channel);
+                    mensage = GlobalCommands.Commands(command, channel, display_name);
                 }
             }
             return TextFormatting.MenssageFormat(mensage, user_name, command, channel);

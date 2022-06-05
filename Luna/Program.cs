@@ -15,12 +15,15 @@ namespace Luna
             {
                 case "start":
                     luna.Connect();
-                    liveMonitor.monitorStart();
+                    liveMonitor.MonitorStart();
                     goto start;
 
                 case "reboot" :
                     luna.Disconnect();
-                    liveMonitor.monitorStop();
+                    liveMonitor.MonitorStop();
+                    Console.Clear();
+                    luna.Connect();
+                    liveMonitor.MonitorStart();
                     goto start;
 
                 case "clear" :
@@ -29,7 +32,7 @@ namespace Luna
 
                 case "shutdown" :
                     luna.Disconnect();
-                    liveMonitor.monitorStop();
+                    liveMonitor.MonitorStop();
                     break;
 
                 default:

@@ -177,19 +177,28 @@ namespace Luna
             return Convert.ToInt32(PG_Read($"SELECT lottery_create( '{channel_id}', '{lottery_name}', '{winners}' )"));
         }
 
-        public int DeleteLottery(String chnnel_id, String lottery_name)
+        public int DeleteLottery(String channel_id, String lottery_name)
         {
-            return Convert.ToInt32(PG_Read(""));
+            return Convert.ToInt32(PG_Read($"SELECT public.lottery_delete('{channel_id}','{lottery_name}')"));
         }
 
-        public int JoinLottery()
+        public int JoinLottery(String channel_id, String user_name,String lottery_name)
         {
-            return 0;
+            return Convert.ToInt32(PG_Read($"SELECT lottery_join('{channel_id}','{user_name}','{lottery_name}')")); // ERRO refazer testes função só funciona no banco de dados
         }
 
-        public int LotteryWinner()
+        public String LotteryWinner(String user_id, String lottery_name)
         {
-            return 0;
+            List<String> auxList = new(PG_List($"SELECT lottery_take_winner('{user_id}', '{lottery_name}')"));
+            String aux = "The winners were: \n";
+            Console.WriteLine(auxList.Count);
+            foreach (String winner in auxList)
+            {
+                int i = 1;
+                aux = aux + $"{i}º {winner}\n";
+                i++;
+            }
+            return aux;
         }
     }
 }
