@@ -81,7 +81,7 @@ namespace Luna
                     }
 
                 case "lotterywinner":
-                    String aux = db.LotteryWinner(user_id, command.Substring(command.IndexOf(' ')));
+                    String aux = db.LotteryWinner(user_id, command.Substring(command.IndexOf(' ') + 1));
                     if (aux != "")
                     {
                         return aux;

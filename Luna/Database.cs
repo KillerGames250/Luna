@@ -190,13 +190,13 @@ namespace Luna
         public String LotteryWinner(String user_id, String lottery_name)
         {
             List<String> auxList = new(PG_List($"SELECT lottery_take_winner('{user_id}', '{lottery_name}')"));
-            String aux = "The winners were: \n";
+            String aux = "The winners were:";
             Console.WriteLine(auxList.Count);
+            int i = 1;
             foreach (String winner in auxList)
             {
-                int i = 1;
-                aux = aux + $"{i}º {winner}\n";
-                i++;
+                aux = aux + $"{i}º {winner}";
+                i ++;
             }
             return aux;
         }
