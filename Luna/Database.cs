@@ -158,7 +158,7 @@ namespace Luna
                 while (reader.Read())
                 {
                     temp = reader.GetString(0);
-                    ChannelLanguage cl = new(temp.Substring(0,(temp.IndexOf(','))), temp.Substring((temp.IndexOf(',') + 1), 2));
+                    ChannelLanguage cl = new(temp.Substring(0,(temp.IndexOf('¨'))), temp.Substring((temp.IndexOf('¨') + 1), 2));
                     aux.Add(cl);
                 }
                 connection.Close();
@@ -189,16 +189,43 @@ namespace Luna
 
         public String LotteryWinner(String user_id, String lottery_name)
         {
-            List<String> auxList = new(PG_List($"SELECT lottery_take_winner('{user_id}', '{lottery_name}')"));
+            List<String> aux_list = new(PG_List($"SELECT lottery_take_winner('{user_id}', '{lottery_name}')"));
             String aux = "The winners were:";
-            Console.WriteLine(auxList.Count);
+            Console.WriteLine(aux_list.Count);
             int i = 1;
-            foreach (String winner in auxList)
+            foreach (String winner in aux_list)
             {
-                aux = aux + $"{i}º {winner}";
+                aux += $"{i}º {winner}";
                 i ++;
             }
             return aux;
+        }
+
+        public List<ChannelMessage> TimerMessages(String channel)
+        {
+            List<ChannelMessage> list = new();
+            String temp = "";
+            try
+            {
+                Console.WriteLine("Start:");
+                connection.Open();
+                NpgsqlCommand command = new($"SELECT timer_message('{channel}')", connection);
+                NpgsqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    temp = reader.GetString(0);
+                    ChannelMessage aux = new(temp.Substring(0, temp.IndexOf('¨')), Convert.ToInt32(temp.Substring((temp.IndexOf('¨') + 1), ((temp.LastIndexOf('¨')) - (temp.IndexOf('¨') + 1)))),temp.Substring(temp.LastIndexOf('¨') + 1));
+                    list.Add(aux);
+                }
+                connection.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            connection.Close();
+            Console.WriteLine("Done.");
+            return list;
         }
     }
 }

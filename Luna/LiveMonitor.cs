@@ -11,7 +11,6 @@ namespace Luna
     {
         TwitchAPI twitchAPI = new();
         LiveStreamMonitorService liveMonitor;
-        public static List<String> livesOnLine  = new();
 
         public LiveMonitor()
         {
@@ -37,14 +36,12 @@ namespace Luna
 
         private void LiveMonitor_OnStreamOnline(object sender, OnStreamOnlineArgs e)
         {
-            livesOnLine.Add(e.Channel);
-            Console.WriteLine(e.Channel+" online");
+            TimerMessage.AddChannel(e.Channel);
         }
 
         private void LiveMonitor_OnStreamOffline(object sender, OnStreamOfflineArgs e)
         {
-            livesOnLine.Remove(e.Channel);
-            Console.WriteLine(e.Channel + " offline");
+            TimerMessage.RemoveChannel(e.Channel);
         }
     }
 }
