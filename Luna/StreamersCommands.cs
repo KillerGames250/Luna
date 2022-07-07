@@ -61,7 +61,7 @@ namespace Luna
                     }
 
                 case "createlottery":
-                    if (db.CreateLottery(user_id, command.Substring(command.IndexOf(' ') + 1, command.LastIndexOf(' ') - command.IndexOf(' ') - 1), Convert.ToInt32(command.Substring(command.LastIndexOf(' ') + 1))) == 1)
+                    if (db.CreateLottery(user_id, command.Substring(command.IndexOf(' ') + 1, command.LastIndexOf(' ') - command.IndexOf(' ') - 1), Convert.ToInt32(command.Substring(command.LastIndexOf('[') + 1,command.IndexOf(']') - command.LastIndexOf('[') - 1))) == 1)
                     {
                         return "Good luck to all";
                     }
