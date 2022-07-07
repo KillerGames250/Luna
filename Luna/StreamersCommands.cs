@@ -91,6 +91,26 @@ namespace Luna
                         return "Error to take a winner";
                     }
 
+                case "addtm":
+                    if (db.AddTimerMessage(user_id, command.Substring(command.IndexOf(' ') + 1, command.IndexOf('[') - command.IndexOf(' ') -1), command.Substring(command.IndexOf('[') + 1, command.IndexOf(']') - command.IndexOf('[') - 1), command.Substring(command.IndexOf('=') + 1)) == 1)
+                    {
+                        return "Message successfully added";
+                    }
+                    else
+                    {
+                        return "Error to add the message";
+                    }
+
+                case "rmtm":
+                    if (db.RemoveTimerMessage(user_id, command.Substring(command.IndexOf(' ') + 1)) == 1)
+                    {
+                        return "Message successfully removed";
+                    }
+                    else
+                    {
+                        return "Error to remove the message";
+                    }
+
                 default:
                     return "";
             }

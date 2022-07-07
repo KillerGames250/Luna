@@ -201,6 +201,16 @@ namespace Luna
             return aux;
         }
 
+        public int AddTimerMessage(String channel_id, String timer_name, String timer, String message)
+        {
+            return Convert.ToInt32(PG_Read($"SELECT timer_message_add('{channel_id}', '{timer_name}', '{timer}', '{message}');"));
+        }
+
+        public int RemoveTimerMessage(String channel_id, String timer_name)
+        {
+            return Convert.ToInt32(PG_Read($"SELECT timer_message_remove('{channel_id}', '{timer_name}');"));
+        }
+
         public List<ChannelMessage> TimerMessages(String channel)
         {
             List<ChannelMessage> list = new();
