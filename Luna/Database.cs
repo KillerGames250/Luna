@@ -203,7 +203,7 @@ namespace Luna
 
         public int AddTimerMessage(String channel_id, String timer_name, String timer, String message)
         {
-            return Convert.ToInt32(PG_Read($"SELECT timer_message_add('{channel_id}', '{timer_name}', '{timer}', '{message}');"));
+            return Convert.ToInt32(PG_Read($"SELECT timer_message_add('{channel_id}', '{timer_name}', '{timer}', '{message.Trim()}');"));
         }
 
         public int RemoveTimerMessage(String channel_id, String timer_name)

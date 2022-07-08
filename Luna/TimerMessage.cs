@@ -10,13 +10,11 @@ namespace Luna
         public static void AddChannel(String channel)
         {
             livesOnLine.Add(channel);
-            Console.WriteLine(channel + " online");
         }
 
         public static void RemoveChannel(String channel)
         {
             livesOnLine.Remove(channel);
-            Console.WriteLine(channel + " offline");
         }
 
         public static void SendMesage()
