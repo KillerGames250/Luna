@@ -5,7 +5,8 @@
 
 # folders
 bin
-Luna/obj
+obj
+Properties
 
 # files
 Config.resx
