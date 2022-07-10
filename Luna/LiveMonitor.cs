@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using TwitchLib.Api;
 using TwitchLib.Api.Services;
-using TwitchLib.Api.Services.Events;
 using TwitchLib.Api.Services.Events.LiveStreamMonitor;
 
 namespace Luna
@@ -18,8 +16,7 @@ namespace Luna
             twitchAPI.Settings.AccessToken = Config.API_MONITOR_TOKEN;
             twitchAPI.Settings.Secret = Config.API_MONITOR_SECRET;
             liveMonitor = new(twitchAPI, 60);
-            List<String> list = new() {Config.CHANNEL1, Config.CHANNEL2, Config.CHANNEL3, Config.CHANNEL4, Config.CHANNEL5, Config.CHANNEL6};
-            liveMonitor.SetChannelsByName(list);
+            liveMonitor.SetChannelsByName(Bot.channels);
         }
 
         public void MonitorStart()

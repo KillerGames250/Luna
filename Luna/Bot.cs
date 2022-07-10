@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Timers;
+using System.Collections.Generic;
 using TwitchLib.Client;
 using TwitchLib.Client.Events;
 using TwitchLib.Client.Models;
 using TwitchLib.Communication.Events;
-using System.Timers;
 
 namespace Luna
 {
@@ -14,12 +15,13 @@ namespace Luna
         Commands cmd = new();
         Translator translator = new();
         ConnectionCredentials credentials = new(Config.BOT_USERNAME, Config.API_CHAT_TOKEN);
-        public  static TwitchClient client = new();
+        internal static TwitchClient client = new();
+        internal static List<String> channels = new(db.ChannelList());
         TimerEvents timerEvents = new();
 
         public void Connect()
         {
-            client.Initialize(credentials, db.ChannelList());
+            client.Initialize(credentials, channels);
             client.OnConnected += Client_OnConnected;
             client.OnDisconnected += Client_OnDisconnected;
             client.OnLog += Client_OnLog;
