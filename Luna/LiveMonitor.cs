@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Timers;
 using TwitchLib.Api;
 using TwitchLib.Api.Services;
 using TwitchLib.Api.Services.Events.LiveStreamMonitor;
@@ -7,8 +8,9 @@ namespace Luna
 {
     internal class LiveMonitor
     {
-        TwitchAPI twitchAPI = new();
-        LiveStreamMonitorService liveMonitor;
+        private Timer timer = new();
+        private TwitchAPI twitchAPI = new();
+        private LiveStreamMonitorService liveMonitor;
 
         public LiveMonitor()
         {
@@ -17,6 +19,9 @@ namespace Luna
             twitchAPI.Settings.Secret = Config.API_MONITOR_SECRET;
             liveMonitor = new(twitchAPI, 60);
             liveMonitor.SetChannelsByName(Bot.channels);
+            timer.Interval = 600000;
+            timer.Elapsed += OnTimerEvent;
+            timer.Enabled = true;
         }
 
         public void MonitorStart()
@@ -39,6 +44,11 @@ namespace Luna
         private void LiveMonitor_OnStreamOffline(object sender, OnStreamOfflineArgs e)
         {
             TimerMessage.RemoveChannel(e.Channel);
+        }
+
+        private void OnTimerEvent(object sender, ElapsedEventArgs e)
+        {
+            liveMonitor.SetChannelsByName(Bot.channels);
         }
     }
 }

@@ -17,16 +17,15 @@ namespace Luna
             livesOnLine.Remove(channel);
         }
 
-        public static void SendMesage()
+        public static void SendMesage(int time)
         {
-            int aux = (DateTime.Now.Hour * 60) + DateTime.Now.Minute;
             foreach (String channel in livesOnLine)
             {
                 foreach (ChannelMessage cm in Bot.db.TimerMessages(channel))
                 {
-                    if ((aux % cm.GetInterval()) == 0)
+                    if ((time % cm.Interval) == 0)
                     {
-                        Bot.client.SendMessage(cm.GetChannel(),cm.GetMessage());
+                        Bot.client.SendMessage(cm.Channel,cm.Message);
                     }
                 }
             }
@@ -35,45 +34,15 @@ namespace Luna
 
     internal class ChannelMessage
     {
-        private String channel;
-        private int interval;
-        private String message;
+        public String Channel { get; private set; }
+        public int Interval { get; private set; }
+        public String Message { get; private set; }
 
         public ChannelMessage(String channel, int interval,String message)
         {
-            this.channel = channel;
-            this.interval = interval;
-            this.message = message;
-        }
-
-        public String GetChannel()
-        {
-            return this.channel;
-        }
-
-        public void SetChannel(String channel)
-        {
-            this.channel = channel;
-        }
-
-        public String GetMessage()
-        {
-            return this.message;
-        }
-
-        public void SetMessage(String message)
-        {
-            this.message = message;
-        }
-
-        public int GetInterval()
-        {
-            return interval;
-        }
-
-        public void SetInterval(int interval)
-        {
-            this.interval = interval;
+            this.Channel = channel;
+            this.Interval = interval;
+            this.Message = message;
         }
     }
 }

@@ -4,13 +4,14 @@ namespace Luna
 {
     internal class TimerEvents
     {
-        public void Events()
+        public static void Events()
         {
-            if (DateTime.Now.ToString("HH:mm").Equals(Config.TIME1) || DateTime.Now.ToString("HH:mm").Equals(Config.TIME2))
+            int time = (DateTime.Now.Hour * 60) + DateTime.Now.Minute;
+            TimerMessage.SendMesage(time);
+            if ((time % Convert.ToInt32(Config.TIME_BAN)) == 0)
             {
                 AutoBan.Ban();
             }
-            TimerMessage.SendMesage();
         }
     }
 }

@@ -10,14 +10,13 @@ namespace Luna
 {
     class Bot
     {
-        Timer timer = new();
+        private Timer timer = new();
         public static Database db = new();
-        Commands cmd = new();
-        Translator translator = new();
-        ConnectionCredentials credentials = new(Config.BOT_USERNAME, Config.API_CHAT_TOKEN);
+        private Commands cmd = new();
+        private Translator translator = new();
+        private static ConnectionCredentials credentials = new(Config.BOT_USERNAME, Config.API_CHAT_TOKEN);
         internal static TwitchClient client = new();
         internal static List<String> channels = new(db.ChannelList());
-        TimerEvents timerEvents = new();
 
         public void Connect()
         {
@@ -44,11 +43,13 @@ namespace Luna
         public static void ChannelJoin(String channel)
         {
             client.JoinChannel(channel.ToLower());
+            channels.Add(channel.ToLower());
         }
 
         public static void ChannelLeave(String channel)
         {
             client.LeaveChannel(channel.ToLower());
+            channels.Remove(channel.ToLower());
         }
 
         private void Client_OnChatCommandRecieved(object sender, OnChatCommandReceivedArgs e)
@@ -95,7 +96,7 @@ namespace Luna
 
         private void OnTimerEvent(object sender, ElapsedEventArgs e)
         {
-            timerEvents.Events();
+            TimerEvents.Events();
         }
     }
 }
