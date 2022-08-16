@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Net.Http;
 using System.Collections.Generic;
+using Luna.DataBase;
 
-namespace Luna
+namespace Luna.Chat
 {
     class Translator
     {
@@ -10,18 +11,18 @@ namespace Luna
         static HttpClient httpclient = new();
         static List<ChannelLanguage> channel_language = new(db.ChannelsWhereTranlationEnable());
 
-        public String Translate(String channel, String message)
+        public string Translate(string channel, string message)
         {
 
             try
             {
-                String lang = SearchLanguage(channel);
+                string lang = SearchLanguage(channel);
                 if (lang == "")
                 {
                     return "";
                 }
                 HttpResponseMessage response = httpclient.GetAsync($"https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl={lang}&dt=t&q={TextFormatting.TranslationMessageWhithoutSpacesFormat(message)}").Result;
-                String translation = response.Content.ReadAsStringAsync().Result;
+                string translation = response.Content.ReadAsStringAsync().Result;
                 translation = translation.Substring(4, translation.IndexOf("\"", 4, StringComparison.Ordinal) - 4);
                 if (!translation.Equals(message))
                 {
@@ -39,7 +40,7 @@ namespace Luna
             return "";
         }
 
-        private String SearchLanguage(String channel)
+        private string SearchLanguage(string channel)
         {
             foreach (ChannelLanguage channel_language in channel_language)
             {
@@ -51,7 +52,7 @@ namespace Luna
             return "";
         }
 
-        private static int SearchUser(String channel)
+        private static int SearchUser(string channel)
         {
             int i = 0;
             foreach (ChannelLanguage channel_language in channel_language)
@@ -65,7 +66,7 @@ namespace Luna
             return -1;
         }
 
-        public static int AddChannelLanguage(String channel, String channel_id, String language)
+        public static int AddChannelLanguage(string channel, string channel_id, string language)
         {
             ChannelLanguage temp = new(channel, language);
             try
@@ -84,7 +85,7 @@ namespace Luna
             return 0;
         }
 
-        public static int RemoveChannelLanguage(String channel, String channel_id)
+        public static int RemoveChannelLanguage(string channel, string channel_id)
         {
             try
             {
@@ -105,33 +106,33 @@ namespace Luna
 
     class ChannelLanguage
     {
-        private String channel;
-        private String language;    
+        private string channel;
+        private string language;
 
-        public ChannelLanguage(String channel, String language)
+        public ChannelLanguage(string channel, string language)
         {
             this.channel = channel;
             this.language = language;
         }
 
-        public void SetChannel(String channel)
+        public void SetChannel(string channel)
         {
-            this.channel=channel;
+            this.channel = channel;
         }
 
-        public String GetChannel()
+        public string GetChannel()
         {
-            return this.channel;
+            return channel;
         }
 
-        public void SetLanguage(String language)
+        public void SetLanguage(string language)
         {
             this.language = language;
         }
 
-        public String GetLanguage()
+        public string GetLanguage()
         {
-            return this.language;
+            return language;
         }
     }
 }

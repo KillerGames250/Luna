@@ -1,10 +1,12 @@
 ﻿using System;
+using Luna.DataBase;
 
-namespace Luna
+
+namespace Luna.Chat
 {
     class GlobalCommands
     {
-        public static String Commands(String command, String channel, String user_name)
+        public string Commands(string command, string channel, string user_name)
         {
             Database db = new();
             switch (TextFormatting.CommandFormat(command))

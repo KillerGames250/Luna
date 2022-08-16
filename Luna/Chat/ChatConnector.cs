@@ -5,22 +5,24 @@ using TwitchLib.Client;
 using TwitchLib.Client.Events;
 using TwitchLib.Client.Models;
 using TwitchLib.Communication.Events;
+using Luna.Events;
+using Luna.DataBase;
+using Luna.Credentials;
 
-namespace Luna
+namespace Luna.Chat
 {
-    class Bot
+    class ChatConnector
     {
         private Timer timer = new();
-        public static Database db = new();
+        private Database db = new();
         private Commands cmd = new();
         private Translator translator = new();
-        private static ConnectionCredentials credentials = new(Config.BOT_USERNAME, Config.API_CHAT_TOKEN);
-        internal static TwitchClient client = new();
-        internal static List<String> channels = new(db.ChannelList());
+        private ConnectionCredentials credentials = new(Config.BOT_USERNAME, Config.API_CHAT_TOKEN);
+        private TwitchClient client = new();
 
         public void Connect()
         {
-            client.Initialize(credentials, channels);
+            client.Initialize(credentials, db.ChannelList());
             client.OnConnected += Client_OnConnected;
             client.OnDisconnected += Client_OnDisconnected;
             client.OnLog += Client_OnLog;
@@ -40,16 +42,14 @@ namespace Luna
             client.Disconnect();
         }
 
-        public static void ChannelJoin(String channel)
+        public void ChannelJoin(string channel)
         {
             client.JoinChannel(channel.ToLower());
-            channels.Add(channel.ToLower());
         }
 
-        public static void ChannelLeave(String channel)
+        public void ChannelLeave(string channel)
         {
             client.LeaveChannel(channel.ToLower());
-            channels.Remove(channel.ToLower());
         }
 
         private void Client_OnChatCommandRecieved(object sender, OnChatCommandReceivedArgs e)
@@ -61,10 +61,10 @@ namespace Luna
         {
             if (!e.ChatMessage.Message.StartsWith('!'))
             {
-                String message = translator.Translate(e.ChatMessage.Channel, e.ChatMessage.Message).ToString();
+                string message = translator.Translate(e.ChatMessage.Channel, e.ChatMessage.Message).ToString();
                 if (!message.Equals(""))
                 {
-                    client.SendMessage(e.ChatMessage.Channel, (message + $" .[By {e.ChatMessage.DisplayName}]"));
+                    client.SendMessage(e.ChatMessage.Channel, message + $" .[By {e.ChatMessage.DisplayName}]");
                 }
             }
         }
@@ -97,6 +97,11 @@ namespace Luna
         private void OnTimerEvent(object sender, ElapsedEventArgs e)
         {
             TimerEvents.Events();
+        }
+
+        public bool IsConnected()
+        {
+            return client.IsConnected;
         }
     }
 }

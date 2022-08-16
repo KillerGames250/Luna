@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Config.Designer.cs">
+    <Compile Update="Credentials\Config.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Config.resx</DependentUpon>
@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Config.resx">
+    <EmbeddedResource Update="Credentials\Config.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Config.Designer.cs</LastGenOutput>
     </EmbeddedResource>

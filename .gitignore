@@ -11,3 +11,4 @@ Properties
 # files
 Config.resx
 Luna/Config.Designer.cs
+Luna/Credentials/Config.Designer.cs

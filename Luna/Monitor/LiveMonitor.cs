@@ -1,16 +1,20 @@
 ﻿using System;
+using Luna.DataBase;
+using Luna.Events;
+using Luna.Credentials;
 using System.Timers;
 using TwitchLib.Api;
 using TwitchLib.Api.Services;
 using TwitchLib.Api.Services.Events.LiveStreamMonitor;
 
-namespace Luna
+namespace Luna.Monitor
 {
     internal class LiveMonitor
     {
         private Timer timer = new();
         private TwitchAPI twitchAPI = new();
         private LiveStreamMonitorService liveMonitor;
+        private Database db = new();
 
         public LiveMonitor()
         {
@@ -18,7 +22,7 @@ namespace Luna
             twitchAPI.Settings.AccessToken = Config.API_MONITOR_TOKEN;
             twitchAPI.Settings.Secret = Config.API_MONITOR_SECRET;
             liveMonitor = new(twitchAPI, 60);
-            liveMonitor.SetChannelsByName(Bot.channels);
+            liveMonitor.SetChannelsByName(db.ChannelList());
             timer.Interval = 600000;
             timer.Elapsed += OnTimerEvent;
             timer.Enabled = true;
@@ -48,7 +52,7 @@ namespace Luna
 
         private void OnTimerEvent(object sender, ElapsedEventArgs e)
         {
-            liveMonitor.SetChannelsByName(Bot.channels);
+            liveMonitor.SetChannelsByName(db.ChannelList());
         }
     }
 }

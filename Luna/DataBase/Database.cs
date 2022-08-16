@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using Luna.Events;
+using Luna.Chat;
+using Luna.Credentials;
 using Npgsql;
 
-namespace Luna
+namespace Luna.DataBase
 {
     class Database
     {
-        static readonly string addres = $"Host={Config.DB_HOST}; Username={Config.DB_USERNAME}; Database={Config.DB_NAME}; Port={Config.DB_PORT}; Password={Config.DB_PASSWORD};";
-        NpgsqlConnection connection = new(addres);
+        private static readonly string addres = $"Host={Config.DB_HOST}; Username={Config.DB_USERNAME}; Database={Config.DB_NAME}; Port={Config.DB_PORT}; Password={Config.DB_PASSWORD};";
+        private NpgsqlConnection connection = new(addres);
 
         private string PG_Read(string SQL)
         {
@@ -16,13 +19,13 @@ namespace Luna
             {
                 Console.WriteLine("Start:");
                 connection.Open();
-                NpgsqlCommand command = new(SQL,connection);
+                NpgsqlCommand command = new(SQL, connection);
                 NpgsqlDataReader reader = command.ExecuteReader();
                 reader.Read();
                 aux = reader.GetValue(0).ToString();
                 reader.Close();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
             }
@@ -31,9 +34,9 @@ namespace Luna
             return aux;
         }
 
-        private List<String> PG_List(string SQL)
+        private List<string> PG_List(string SQL)
         {
-            List<String> aux = new();
+            List<string> aux = new();
             try
             {
                 Console.WriteLine("Start:");
@@ -55,92 +58,92 @@ namespace Luna
             return aux;
         }
 
-        public List<String> ChannelList()
+        public List<string> ChannelList()
         {
-            List<String> aux = new() {Config.BOT_USERNAME};
+            List<string> aux = new() { Config.BOT_USERNAME };
             aux.AddRange(PG_List("SELECT channels_list();"));
-            return aux; 
+            return aux;
         }
 
-        public int BotJoin(String user_id, String user_name)
+        public int BotJoin(string user_id, string user_name)
         {
             return Convert.ToInt32(PG_Read($"SELECT bot_join('{user_id}','{user_name}');"));
         }
 
-        public int BotLeave(String user_id)
+        public int BotLeave(string user_id)
         {
             return Convert.ToInt32(PG_Read($"SELECT bot_leave('{user_id}');"));
         }
 
-        public int AutoBanEnable(String user_id)
+        public int AutoBanEnable(string user_id)
         {
             return Convert.ToInt32(PG_Read($"SELECT auto_ban_enable('{user_id}');"));
         }
 
-        public int AutoBanDisable(String user_id)
+        public int AutoBanDisable(string user_id)
         {
             return Convert.ToInt32(PG_Read($"SELECT auto_ban_disable('{user_id}');"));
         }
 
-        public int CommandAdd(String channel_id, String command_name, String command_action)
+        public int CommandAdd(string channel_id, string command_name, string command_action)
         {
             return Convert.ToInt32(PG_Read($"SELECT command_add('{channel_id}','{command_name}','{command_action}')"));
         }
 
-        public int CommandRemove(String channel_id, String command_name)
+        public int CommandRemove(string channel_id, string command_name)
         {
             return Convert.ToInt32(PG_Read($"SELECT command_remove('{channel_id}','{command_name}');"));
         }
 
-        public String CommandGet(String channel_name, String command_name)
+        public string CommandGet(string channel_name, string command_name)
         {
-            String aux = PG_Read($"SELECT command_get('{channel_name}','{command_name}')");
+            string aux = PG_Read($"SELECT command_get('{channel_name}','{command_name}')");
             return aux;
         }
 
-        public String CommandsList(String channel_name)
+        public string CommandsList(string channel_name)
         {
-            String commandlist = "";
-            foreach (String item in PG_List($"SELECT command_list('{channel_name}')"))
+            string commandlist = "";
+            foreach (string item in PG_List($"SELECT command_list('{channel_name}')"))
             {
                 commandlist = commandlist + $" !{item} " + "||";
             }
             return "";
         }
 
-        public void BannedUser(String user_name, String user_id, String channel_id, String channel_name)
+        public void BannedUser(string user_name, string user_id, string channel_id, string channel_name)
         {
             PG_Read($"SELECT ban_user('{user_name}','{user_id}','{channel_id}','{channel_name}');");
         }
 
-        public List<String> BannedUsersList()
+        public List<string> BannedUsersList()
         {
-            List<String> aux = new(PG_List($"SELECT perma_banneds_users_list()"));
+            List<string> aux = new(PG_List($"SELECT perma_banneds_users_list()"));
             return aux;
         }
 
-        public List<String> ChannelsWhereAutoBanEnable()
+        public List<string> ChannelsWhereAutoBanEnable()
         {
-            List<String> aux = new(PG_List($"SELECT channels_where_autoban_enable()"));
+            List<string> aux = new(PG_List($"SELECT channels_where_autoban_enable()"));
             return aux;
         }
 
-        public int CounterSet(int number, String channel_name, String command_name)
+        public int CounterSet(int number, string channel_name, string command_name)
         {
             return Convert.ToInt32(PG_Read($"SELECT counter_set('{number}','{channel_name}','{command_name}')"));
         }
 
-        public String CounterGet(String channel, String command_name)
+        public string CounterGet(string channel, string command_name)
         {
             return PG_Read($"SELECT counter_get('{channel}','{command_name}')");
         }
 
-        public int TranslationEnable(String channel_id, String language)
+        public int TranslationEnable(string channel_id, string language)
         {
             return Convert.ToInt32(PG_Read($"SELECT translation_enable('{channel_id}','{language}')"));
         }
 
-        public int TranlationDisable(String channel_id)
+        public int TranlationDisable(string channel_id)
         {
             return Convert.ToInt32(PG_Read($"SELECT translation_disable('{channel_id}')"));
         }
@@ -148,7 +151,7 @@ namespace Luna
         public List<ChannelLanguage> ChannelsWhereTranlationEnable()
         {
             List<ChannelLanguage> aux = new();
-            String temp = "";
+            string temp = "";
             try
             {
                 Console.WriteLine("Start:");
@@ -158,7 +161,7 @@ namespace Luna
                 while (reader.Read())
                 {
                     temp = reader.GetString(0);
-                    ChannelLanguage cl = new(temp.Substring(0,(temp.IndexOf('¨'))), temp.Substring((temp.IndexOf('¨') + 1), 2));
+                    ChannelLanguage cl = new(temp.Substring(0, temp.IndexOf('¨')), temp.Substring(temp.IndexOf('¨') + 1, 2));
                     aux.Add(cl);
                 }
                 connection.Close();
@@ -172,49 +175,49 @@ namespace Luna
             return aux;
         }
 
-        public int CreateLottery(String channel_id, String lottery_name, int winners) 
+        public int CreateLottery(string channel_id, string lottery_name, int winners)
         {
             return Convert.ToInt32(PG_Read($"SELECT lottery_create( '{channel_id}', '{lottery_name}', '{winners}' )"));
         }
 
-        public int DeleteLottery(String channel_id, String lottery_name)
+        public int DeleteLottery(string channel_id, string lottery_name)
         {
             return Convert.ToInt32(PG_Read($"SELECT public.lottery_delete('{channel_id}','{lottery_name}')"));
         }
 
-        public int JoinLottery(String channel_id, String user_name,String lottery_name)
+        public int JoinLottery(string channel_id, string user_name, string lottery_name)
         {
             return Convert.ToInt32(PG_Read($"SELECT lottery_join('{channel_id}','{user_name}','{lottery_name}')")); // ERRO refazer testes função só funciona no banco de dados
         }
 
-        public String LotteryWinner(String user_id, String lottery_name)
+        public string LotteryWinner(string user_id, string lottery_name)
         {
-            List<String> aux_list = new(PG_List($"SELECT lottery_take_winner('{user_id}', '{lottery_name}')"));
-            String aux = "The winners were:";
+            List<string> aux_list = new(PG_List($"SELECT lottery_take_winner('{user_id}', '{lottery_name}')"));
+            string aux = "The winners were:";
             Console.WriteLine(aux_list.Count);
             int i = 1;
-            foreach (String winner in aux_list)
+            foreach (string winner in aux_list)
             {
                 aux += $"{i}º {winner}";
-                i ++;
+                i++;
             }
             return aux;
         }
 
-        public int AddTimerMessage(String channel_id, String timer_name, String timer, String message)
+        public int AddTimerMessage(string channel_id, string timer_name, string timer, string message)
         {
             return Convert.ToInt32(PG_Read($"SELECT timer_message_add('{channel_id}', '{timer_name}', '{timer}', '{message.Trim()}');"));
         }
 
-        public int RemoveTimerMessage(String channel_id, String timer_name)
+        public int RemoveTimerMessage(string channel_id, string timer_name)
         {
             return Convert.ToInt32(PG_Read($"SELECT timer_message_remove('{channel_id}', '{timer_name}');"));
         }
 
-        public List<ChannelMessage> TimerMessages(String channel)
+        public List<ChannelMessage> TimerMessages(string channel)
         {
             List<ChannelMessage> list = new();
-            String temp = "";
+            string temp = "";
             try
             {
                 Console.WriteLine("Start:");
@@ -224,7 +227,7 @@ namespace Luna
                 while (reader.Read())
                 {
                     temp = reader.GetString(0);
-                    ChannelMessage aux = new(temp.Substring(0, temp.IndexOf('¨')), Convert.ToInt32(temp.Substring((temp.IndexOf('¨') + 1), ((temp.LastIndexOf('¨')) - (temp.IndexOf('¨') + 1)))),temp.Substring(temp.LastIndexOf('¨') + 1));
+                    ChannelMessage aux = new(temp.Substring(0, temp.IndexOf('¨')), Convert.ToInt32(temp.Substring(temp.IndexOf('¨') + 1, temp.LastIndexOf('¨') - (temp.IndexOf('¨') + 1))), temp.Substring(temp.LastIndexOf('¨') + 1));
                     list.Add(aux);
                 }
                 connection.Close();
