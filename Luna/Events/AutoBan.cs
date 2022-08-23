@@ -1,5 +1,5 @@
 ﻿using System;
-using Luna.Chat;
+using TwitchLib.Client;
 using Luna.DataBase;
 using System.Collections.Generic;
 
@@ -8,7 +8,7 @@ namespace Luna.Events
     internal class AutoBan
     {
         private Database db = new();
-        public void Ban()
+        public void Ban(TwitchClient client)
         {
             List<string> channels = db.ChannelsWhereAutoBanEnable();
             List<string> bannedusers = db.BannedUsersList();
@@ -16,7 +16,7 @@ namespace Luna.Events
             {
                 foreach (string users in bannedusers)
                 {
-                    Chat.ChatConnector.client.SendMessage(channel, $"/ban {users}");
+                    client.SendMessage(channel, $"/ban {users}");
                 }
             }
         }

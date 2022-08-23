@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Timers;
-using System.Collections.Generic;
 using TwitchLib.Client;
 using TwitchLib.Client.Events;
 using TwitchLib.Client.Models;
@@ -19,6 +18,7 @@ namespace Luna.Chat
         private Translator translator = new();
         private ConnectionCredentials credentials = new(Config.BOT_USERNAME, Config.API_CHAT_TOKEN);
         private TwitchClient client = new();
+        private TimerEvents timerEvents = new();
 
         public void Connect()
         {
@@ -42,19 +42,9 @@ namespace Luna.Chat
             client.Disconnect();
         }
 
-        public void ChannelJoin(string channel)
-        {
-            client.JoinChannel(channel.ToLower());
-        }
-
-        public void ChannelLeave(string channel)
-        {
-            client.LeaveChannel(channel.ToLower());
-        }
-
         private void Client_OnChatCommandRecieved(object sender, OnChatCommandReceivedArgs e)
         {
-            client.SendMessage(e.Command.ChatMessage.Channel, cmd.Command(e.Command.ChatMessage.Channel, e.Command.ChatMessage.DisplayName, e.Command.ChatMessage.UserId, e.Command.ChatMessage.Message));
+            cmd.Command(client, e.Command.ChatMessage.Channel, e.Command.ChatMessage.DisplayName, e.Command.ChatMessage.UserId, e.Command.ChatMessage.Message);
         }
 
         private void Client_OnMessageReceived(object sender, OnMessageReceivedArgs e)
@@ -96,7 +86,7 @@ namespace Luna.Chat
 
         private void OnTimerEvent(object sender, ElapsedEventArgs e)
         {
-            TimerEvents.Events();
+            timerEvents.Events(client);
         }
 
         public bool IsConnected()

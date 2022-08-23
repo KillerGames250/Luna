@@ -1,6 +1,6 @@
-﻿using Luna.Chat;
+﻿using System;
+using TwitchLib.Client;
 using Luna.DataBase;
-using System;
 using System.Collections.Generic;
 
 namespace Luna.Events
@@ -21,7 +21,7 @@ namespace Luna.Events
             livesOnLine.Remove(channel);
         }
 
-        public void SendMesage(int time)
+        public void SendMesage(TwitchClient client, int time)
         {
             foreach (string channel in livesOnLine)
             {
@@ -29,7 +29,7 @@ namespace Luna.Events
                 {
                     if (time % cm.Interval == 0)
                     {
-                        Chat.ChatConnector.client.SendMessage(cm.Channel, cm.Message);
+                        client.SendMessage(cm.Channel, cm.Message);
                     }
                 }
             }

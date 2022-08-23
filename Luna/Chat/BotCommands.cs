@@ -1,19 +1,20 @@
 ﻿using System;
 using Luna.DataBase;
+using TwitchLib.Client;
 
 namespace Luna.Chat
 {
-    class ChatCommands
+    class BotCommands
     {
         private Database db = new();
-        public string Commands(string command, string user_id, string user_name, string display_name)
+        public string Commands(TwitchClient client, string command, string user_id, string user_name, string display_name)
         {
             switch (TextFormatting.CommandFormat(command))
             {
                 case "join":
                     if (db.BotJoin(user_id, user_name.ToLower()) == 1)
                     {
-                        ChatConnector.ChannelJoin(display_name);
+                        client.JoinChannel(display_name);
                         return $"Welcome to the group @{display_name}";
                     }
                     else
@@ -24,7 +25,7 @@ namespace Luna.Chat
                 case "leave":
                     if (db.BotLeave(user_id) == 1)
                     {
-                        ChatConnector.ChannelLeave(display_name);
+                        client.LeaveChannel(display_name);
                         return $"See you @{display_name}";
                     }
                     else
