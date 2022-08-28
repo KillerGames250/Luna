@@ -6,7 +6,6 @@ using TwitchLib.Client.Models;
 using TwitchLib.Communication.Events;
 using Luna.Events;
 using Luna.DataBase;
-using Luna.Credentials;
 
 namespace Luna.Chat
 {
@@ -16,9 +15,14 @@ namespace Luna.Chat
         private Database db = new();
         private Commands cmd = new();
         private Translator translator = new();
-        private ConnectionCredentials credentials = new(Config.BOT_USERNAME, Config.API_CHAT_TOKEN);
+        private ConnectionCredentials credentials;
         private TwitchClient client = new();
         private TimerEvents timerEvents = new();
+
+        public ChatConnector(String user_name, String token)
+        {
+            credentials = new(user_name, token);
+        }
 
         public void Connect()
         {
