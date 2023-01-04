@@ -26,7 +26,6 @@ namespace Luna.Credentials
         protected virtual async Task<bool> CheckTokenValid()
         {
             api.Settings.ClientId = ID;
-
             ValidateAccessTokenResponse aux = await api.Auth.ValidateAccessTokenAsync(Token);
             if (aux is null)
             {
@@ -66,7 +65,6 @@ namespace Luna.Credentials
             if (!Status)
             {
                 RefreshToken().Wait();
-                Console.WriteLine(Token);
             }
         }
     }
