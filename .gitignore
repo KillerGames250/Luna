@@ -12,3 +12,5 @@ Properties
 Config.resx
 Config.Designer.cs
 
+Luna/Luna.csproj.user
+Luna/Credentials/json1.json
