@@ -1,8 +1,6 @@
-﻿using System;
-using TwitchLib.Client;
+﻿using TwitchLib.Client;
 using Luna.DataBase;
-using Luna.Credentials;
-
+using Luna.Settings;
 
 namespace Luna.Chat
 {
@@ -17,7 +15,7 @@ namespace Luna.Chat
         {
             string mensage = "";
             string user_name = display_name.ToLower();
-            if (channel.Equals(Config.BOT_USERNAME))
+            if (channel.Equals(ControllerSettings.settings.CredentialsTwitch.User))
             {
                 mensage = botCommands.Commands(client, command, user_id, user_name, display_name);
             }

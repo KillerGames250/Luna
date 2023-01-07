@@ -11,17 +11,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Credentials\Config.Designer.cs">
+    <Compile Update="Settings\Paths.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Config.resx</DependentUpon>
+      <DependentUpon>Paths.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Credentials\Config.resx">
+    <EmbeddedResource Update="Settings\Paths.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Config.Designer.cs</LastGenOutput>
+      <LastGenOutput>Paths.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 

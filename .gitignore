@@ -9,7 +9,6 @@ obj
 Properties
 
 # files
-Config.resx
-Config.Designer.cs
-Luna.csproj.user
-Luna/Credentials/json1.json
+Luna/Settings/Paths.resx
+Luna/Settings/Paths.Designer.cs
+Luna/Luna.csproj.user

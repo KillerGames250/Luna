@@ -1,28 +1,26 @@
-﻿using System;
-using Luna.Chat;
+﻿using Luna.Chat;
 using Luna.Monitor;
-using Luna.Credentials;
+using Luna.Settings;
 
 namespace Luna
 {
     internal class Controller
     {
-        ChatCredentials chat_credential = new();
-        MonitorCredentials monitor_credential = new();
         public void BotStart()
         {
-            chat_credential.UpdateCredentials();
-            monitor_credential.UpdateCredentials();
-            ChatConnector chat = new(chat_credential.UserName, chat_credential.Token);
-            LiveMonitor monitor = new(monitor_credential.ID, monitor_credential.Secret, monitor_credential.Token);
-            chat.Connect();
-            monitor.MonitorStart();
-            while (true)
+            if (ControllerSettings.Load())
             {
-                System.Threading.Thread.Sleep(1);
-                if (!chat.IsConnected())
+                ChatConnector chat = new(ControllerSettings.settings.CredentialsTwitch.User, ControllerSettings.settings.CredentialsTwitch.ChatToken);
+                LiveMonitor monitor = new(ControllerSettings.settings.CredentialsTwitch.MonitorID, ControllerSettings.settings.CredentialsTwitch.MonitorSecret, ControllerSettings.settings.CredentialsTwitch.MonitorToken);
+                chat.Connect();
+                monitor.MonitorStart();
+                while (true)
                 {
-                    break;
+                    System.Threading.Thread.Sleep(1);
+                    if (!chat.IsConnected())
+                    {
+                        break;
+                    }
                 }
             }
         }

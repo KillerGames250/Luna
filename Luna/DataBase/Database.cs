@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using Luna.Events;
 using Luna.Chat;
-using Luna.Credentials;
 using Npgsql;
+using Luna.Settings;
 
 namespace Luna.DataBase
 {
     class Database
     {
-        private static readonly string addres = $"Host={Config.DB_HOST}; Username={Config.DB_USERNAME}; Database={Config.DB_NAME}; Port={Config.DB_PORT}; Password={Config.DB_PASSWORD};";
+        private static readonly string addres = $"Host={ControllerSettings.settings.CredentialsDatabase.Host}; Username={ControllerSettings.settings.CredentialsDatabase.User}; Database={ControllerSettings.settings.CredentialsDatabase.Name}; Port={ControllerSettings.settings.CredentialsDatabase.Port}; Password={ControllerSettings.settings.CredentialsDatabase.Password};";
         private NpgsqlConnection connection = new(addres);
 
         private string PG_Read(string SQL)
@@ -60,7 +60,7 @@ namespace Luna.DataBase
 
         public List<string> ChannelList()
         {
-            List<string> aux = new() { Config.BOT_USERNAME };
+            List<string> aux = new() { ControllerSettings.settings.CredentialsTwitch.User };
             aux.AddRange(PG_List("SELECT channels_list();"));
             return aux;
         }
