@@ -1,17 +1,18 @@
 ﻿using System;
+using Luna.DataBase;
 
-namespace Luna
+namespace Luna.Chat
 {
     class StreamersCommands
     {
-        public static String Commands(String command, String user_id, String channel)
+        public string Commands(string command, string user_id, string channel)
         {
             Database db = new();
             switch (TextFormatting.CommandFormat(command))
             {
                 case "add":
-                    String command_name = command.Substring(command.IndexOf(' ') + 1, command.IndexOf('=') - command.IndexOf(' ') - 1);
-                    String command_action = command.Substring(command.IndexOf('=') + 1);
+                    string command_name = command.Substring(command.IndexOf(' ') + 1, command.IndexOf('=') - command.IndexOf(' ') - 1);
+                    string command_action = command.Substring(command.IndexOf('=') + 1);
                     switch (db.CommandAdd(user_id, command_name.Trim(), command_action.Trim()))
                     {
                         case 1:
@@ -25,7 +26,7 @@ namespace Luna
                     }
 
                 case "remove":
-                    String command_remove = command.Substring(command.IndexOf(' ') + 1);
+                    string command_remove = command.Substring(command.IndexOf(' ') + 1);
                     if (db.CommandRemove(user_id, command_remove) == 1)
                     {
                         return "Command successfully remove";
@@ -38,12 +39,12 @@ namespace Luna
                 case "reset":
                     if (command.Contains('='))
                     {
-                        int temp = Int32.Parse(command.Substring(command.IndexOf('=') + 1));
-                        if (db.CounterSet(temp, channel, command.Substring(command.IndexOf(' ') + 1, (command.IndexOf('=') - command.IndexOf(' ') - 1))) ==1) 
+                        int temp = int.Parse(command.Substring(command.IndexOf('=') + 1));
+                        if (db.CounterSet(temp, channel, command.Substring(command.IndexOf(' ') + 1, command.IndexOf('=') - command.IndexOf(' ') - 1)) == 1)
                         {
-                            return "successfully reset"; 
-                        } 
-                        else 
+                            return "successfully reset";
+                        }
+                        else
                         {
                             return "Error to reset";
                         }
@@ -61,7 +62,7 @@ namespace Luna
                     }
 
                 case "createlottery":
-                    if (db.CreateLottery(user_id, command.Substring(command.IndexOf(' ') + 1, command.LastIndexOf(' ') - command.IndexOf(' ') - 1), Convert.ToInt32(command.Substring(command.LastIndexOf('[') + 1,command.IndexOf(']') - command.LastIndexOf('[') - 1))) == 1)
+                    if (db.CreateLottery(user_id, command.Substring(command.IndexOf(' ') + 1, command.LastIndexOf(' ') - command.IndexOf(' ') - 1), Convert.ToInt32(command.Substring(command.LastIndexOf('[') + 1, command.IndexOf(']') - command.LastIndexOf('[') - 1))) == 1)
                     {
                         return "Good luck to all";
                     }
@@ -81,7 +82,7 @@ namespace Luna
                     }
 
                 case "lotterywinner":
-                    String aux = db.LotteryWinner(user_id, command.Substring(command.IndexOf(' ') + 1));
+                    string aux = db.LotteryWinner(user_id, command.Substring(command.IndexOf(' ') + 1));
                     if (aux != "")
                     {
                         return aux;
@@ -92,7 +93,7 @@ namespace Luna
                     }
 
                 case "addtm":
-                    if (db.AddTimerMessage(user_id, command.Substring(command.IndexOf(' ') + 1, command.IndexOf('[') - command.IndexOf(' ') -1), command.Substring(command.IndexOf('[') + 1, command.IndexOf(']') - command.IndexOf('[') - 1), command.Substring(command.IndexOf('=') + 1)) == 1)
+                    if (db.AddTimerMessage(user_id, command.Substring(command.IndexOf(' ') + 1, command.IndexOf('[') - command.IndexOf(' ') - 1), command.Substring(command.IndexOf('[') + 1, command.IndexOf(']') - command.IndexOf('[') - 1), command.Substring(command.IndexOf('=') + 1)) == 1)
                     {
                         return "Message successfully added";
                     }

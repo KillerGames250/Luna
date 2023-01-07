@@ -1,17 +1,20 @@
 ﻿using System;
+using Luna.DataBase;
+using TwitchLib.Client;
 
-namespace Luna
+namespace Luna.Chat
 {
     class BotCommands
     {
-        public static String Commands(String command, String user_id, String user_name, String display_name)
+        private Database db = new();
+        public string Commands(TwitchClient client, string command, string user_id, string user_name, string display_name)
         {
             switch (TextFormatting.CommandFormat(command))
             {
                 case "join":
-                    if (Bot.db.BotJoin(user_id, user_name.ToLower()) == 1)
+                    if (db.BotJoin(user_id, user_name.ToLower()) == 1)
                     {
-                        Bot.ChannelJoin(display_name);
+                        client.JoinChannel(display_name);
                         return $"Welcome to the group @{display_name}";
                     }
                     else
@@ -20,9 +23,9 @@ namespace Luna
                     }
 
                 case "leave":
-                    if (Bot.db.BotLeave(user_id) == 1)
+                    if (db.BotLeave(user_id) == 1)
                     {
-                        Bot.ChannelLeave(display_name);
+                        client.LeaveChannel(display_name);
                         return $"See you @{display_name}";
                     }
                     else
@@ -31,7 +34,7 @@ namespace Luna
                     }
 
                 case "enableban":
-                    if (Bot.db.AutoBanEnable(user_id) == 1)
+                    if (db.AutoBanEnable(user_id) == 1)
                     {
                         return "Auto ban is enabled in your channel";
                     }
@@ -41,7 +44,7 @@ namespace Luna
                     }
 
                 case "disableban":
-                    if (Bot.db.AutoBanDisable(user_id) == 1)
+                    if (db.AutoBanDisable(user_id) == 1)
                     {
                         return "Auto ban is disabled in your channel";
                     }
@@ -51,7 +54,7 @@ namespace Luna
                     }
 
                 case "enabletranslation":
-                    if (Translator.AddChannelLanguage(user_name.ToLower(), user_id, command.Substring((command.IndexOf(' ') + 1), 5)) == 1)
+                    if (Translator.AddChannelLanguage(user_name.ToLower(), user_id, command.Substring(command.IndexOf(' ') + 1, 5)) == 1)
                     {
                         return "Message translation is enabled in your channel";
                     }

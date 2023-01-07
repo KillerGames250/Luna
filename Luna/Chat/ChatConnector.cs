@@ -1,26 +1,32 @@
 ﻿using System;
 using System.Timers;
-using System.Collections.Generic;
 using TwitchLib.Client;
 using TwitchLib.Client.Events;
 using TwitchLib.Client.Models;
 using TwitchLib.Communication.Events;
+using Luna.Events;
+using Luna.DataBase;
 
-namespace Luna
+namespace Luna.Chat
 {
-    class Bot
+    class ChatConnector
     {
         private Timer timer = new();
-        public static Database db = new();
+        private Database db = new();
         private Commands cmd = new();
         private Translator translator = new();
-        private static ConnectionCredentials credentials = new(Config.BOT_USERNAME, Config.API_CHAT_TOKEN);
-        internal static TwitchClient client = new();
-        internal static List<String> channels = new(db.ChannelList());
+        private ConnectionCredentials credentials;
+        private TwitchClient client = new();
+        private TimerEvents timerEvents = new();
+
+        public ChatConnector(String user_name, String token)
+        {
+            credentials = new(user_name, token);
+        }
 
         public void Connect()
         {
-            client.Initialize(credentials, channels);
+            client.Initialize(credentials, db.ChannelList());
             client.OnConnected += Client_OnConnected;
             client.OnDisconnected += Client_OnDisconnected;
             client.OnLog += Client_OnLog;
@@ -40,31 +46,19 @@ namespace Luna
             client.Disconnect();
         }
 
-        public static void ChannelJoin(String channel)
-        {
-            client.JoinChannel(channel.ToLower());
-            channels.Add(channel.ToLower());
-        }
-
-        public static void ChannelLeave(String channel)
-        {
-            client.LeaveChannel(channel.ToLower());
-            channels.Remove(channel.ToLower());
-        }
-
         private void Client_OnChatCommandRecieved(object sender, OnChatCommandReceivedArgs e)
         {
-            client.SendMessage(e.Command.ChatMessage.Channel, cmd.Command(e.Command.ChatMessage.Channel, e.Command.ChatMessage.DisplayName, e.Command.ChatMessage.UserId, e.Command.ChatMessage.Message));
+            cmd.Command(client, e.Command.ChatMessage.Channel, e.Command.ChatMessage.DisplayName, e.Command.ChatMessage.UserId, e.Command.ChatMessage.Message);
         }
 
         private void Client_OnMessageReceived(object sender, OnMessageReceivedArgs e)
         {
             if (!e.ChatMessage.Message.StartsWith('!'))
             {
-                String message = translator.Translate(e.ChatMessage.Channel, e.ChatMessage.Message).ToString();
+                string message = translator.Translate(e.ChatMessage.Channel, e.ChatMessage.Message).ToString();
                 if (!message.Equals(""))
                 {
-                    client.SendMessage(e.ChatMessage.Channel, (message + $" .[By {e.ChatMessage.DisplayName}]"));
+                    client.SendMessage(e.ChatMessage.Channel, message + $" .[By {e.ChatMessage.DisplayName}]");
                 }
             }
         }
@@ -96,7 +90,12 @@ namespace Luna
 
         private void OnTimerEvent(object sender, ElapsedEventArgs e)
         {
-            TimerEvents.Events();
+            timerEvents.Events(client);
+        }
+
+        public bool IsConnected()
+        {
+            return client.IsConnected;
         }
     }
 }

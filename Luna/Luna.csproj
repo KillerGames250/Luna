@@ -6,22 +6,22 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.5" />
-    <PackageReference Include="TwitchLib" Version="3.3.0" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.1" />
+    <PackageReference Include="TwitchLib" Version="3.5.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Config.Designer.cs">
+    <Compile Update="Settings\Paths.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Config.resx</DependentUpon>
+      <DependentUpon>Paths.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Config.resx">
+    <EmbeddedResource Update="Settings\Paths.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Config.Designer.cs</LastGenOutput>
+      <LastGenOutput>Paths.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 
