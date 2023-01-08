@@ -13,9 +13,9 @@ namespace Luna.Settings
         private static TwitchAPI api = new();
         public static bool Load()
         {
-            if (File.Exists(Paths.PATHDEV))
+            if (File.Exists(Paths.PATH_SERVER))
             {
-                file = File.ReadAllText(Paths.PATHDEV);
+                file = File.ReadAllText(Paths.PATH_SERVER);
                 settings = JsonSerializer.Deserialize<Settings>(file);
                 CheckTokensValid();
                 return true;
@@ -25,10 +25,10 @@ namespace Luna.Settings
 
         private static void Save()
         {
-            if (File.Exists(Paths.PATHDEV))
+            if (File.Exists(Paths.PATH_SERVER))
             {
                 file = JsonSerializer.Serialize(settings);
-                File.WriteAllText(Paths.PATHDEV, file);
+                File.WriteAllText(Paths.PATH_SERVER, file);
             }
         }
 
