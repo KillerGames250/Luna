@@ -9,6 +9,4 @@ obj
 Properties
 
 # files
-Luna/Settings/Paths.resx
-Luna/Settings/Paths.Designer.cs
 Luna/Luna.csproj.user
