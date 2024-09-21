@@ -33,6 +33,7 @@ namespace Luna.Chat
 			client.OnError += Client_OnError;
 			client.OnUserBanned += Clinent_OnUserBanned;
 			client.OnMessageReceived += Client_OnMessageReceived;
+			client.DisableAutoPong = true;
 			client.Connect();
 			timer.Interval = 60000;
 			timer.Elapsed += OnTimerEvent;
