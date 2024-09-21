@@ -10,6 +10,8 @@ namespace Luna
 			{
 				Controller controller = new();
 				controller.BotStart();
+				controller.BotStop();
+				System.Threading.Thread.Sleep(300000);
 			}   
 		}
 	}
