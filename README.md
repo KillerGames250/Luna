@@ -17,16 +17,15 @@ Documentation in english (en) :us:
 
 
 ## Sobre
-A Luna é chatbot para a plataforma [Twitch](https://www.twitch.tv/), que irá ajudar você em sua stream interagindo e moderando o chat.
-O projeto da Luna vem sendo desenvolvido no meu tempo livre, por causa disso pode levar um tempo para que uma função nova seja implementada, tentarei corrigir os eventuais bugs o mais rápido possível.
+A Luna é chatbot para a plataforma [Twitch](https://www.twitch.tv/), projetado para auxiliar nas suas transmissões, interagindo e moderando o cha.Este projeto é desenvolvido no meu tempo livre, o que pode ocasionar um tempo maior para a implementação de novas funcionalidades. No entanto, comprometo-me a corrigir eventuais bugs com a maior rapidez possível.
 
 
 ## Dica
-Para que nem uma mensagem da Luna seja bloqueada pela twitch ou por outros bots que você possa possuir e também para ela conseguir executar todos os comandos sem problemas coloque ela como moderadora, caso não estejá confortavel em colocala como moderadora recomendamos que atribua o cargo de vip.
+Para garantir que nenhuma mensagem da Luna seja bloqueada pela Twitch ou por outros bots que você possa utilizar, e que ela consiga executar todos os comandos sem problema, recomendamos atribuir a ela o cargo de moderadora. Caso não se sinta confortável em colocá-la como moderadora, sugerimos atribuir a ela o cargo de VIP, no entando, isso pode ocasionar que alguns comandos não funcionem.
 
 
 ## AVISO IMPORTANTE
-Caso você peça para a Luna deixar o seu canal todos os seus dados(comandos, mensagens, configurações e etc.) serão excluídos imediatamente e permanentimente então por favor tenha certeza que deseja remove-lá do seu canal.
+Caso você solicite que a Luna deixe o seu canal,  todos os seus dados ( comandos, mensagens programadas, configuraçẽos, etc ) serão excluidos imediatamente e permanetemente. Portanto, por favor, tenha certeza de que deseja removê-la do seu canal.
 
 
 ## Comandos
@@ -43,58 +42,59 @@ Esses comandos só serão reconhecidos se enviados apenas no chat da [Luna](http
 | !disableban                 | Será desativado a função de banimento automático          |
 
 #### Banimento automático
-Essa função consiste em banir usuários que possuem histórico de bans registrado na sua conta por diversos motivos, toda vez que um usuário é banido em um canal que a Luna esteja presente ela irá registrar em seu banco de dados o banimento daquele usuário. Após ele acumular um determinado número de banimentos ele será considerado um usuário nocivo e caso a opção de autoban esteja ativa em seu canal ele será banido automaticamente do seu canal.
+Essa função consiste em banir usuários que possuem histórico de bans registrado na sua conta por diversos motivos. Toda vez que um usuário é banido em um canal que a Luna esteja presente, ela registrará o banimento em seu banco de dados. Após acumular um determinado número de banimentos, o usuário será considerado nocivo e, caso a opção de autoban esteja ativa em seu canal ele será banido automaticamente.
 
 
 ### Comandos para o Streamer
-Esses comandos só serão reconhecidos se o próprio Streamer enviar no seu próprio canal.
+Esses comandos só serão reconhecidos se enviados pelo próprio Streamer no seu canal.
 
 
-**IMPORTANTE:** Nos parênteses () o conteúdo deles devem ser substituído pelo conteúdo que você quiser e os [] devem estar presente no comando final caso contrário um erro será gerado ex:
-!addtm seguir[30]=Não esqueçam de dar o follow!!!
+**IMPORTANTE:** Nos parênteses (), substititua pelo que você desejar, e os colchetes [] devem estar presente no comando final. Caso contrário um erro será gerado. 
+
+Exemplo: `` !addtm seguir[30]=Não esqueçam de dar o follow!!! ``
 
 
 | Comando        | Exemplo                                                                    | Saída                                                  |
 | :------------- | :------------------------------------------------------------------------- | :----------------------------------------------------- |
-| !add           | !add (nome do comando)=(O que o bot irá responder)                          | Adiciona um comando                                   |
+| !add           | !add (nome do comando)=(resposta da luna)                          | Adiciona um comando                                   |
 | !remove        | !remove (nome do comando)                                                   | Remove o comando                                       |
-| !reset         | !reset (nome do comando) ou !reset (nome do comando)=(número)                | Se o camando possuir um contador será resetado para 0 ou número desejado            |
+| !reset         | !reset (nome do comando) ou !reset (nome do comando)=(número)                | Reseta o contador do comando para 0 ou para o número desejado            |
 | !createlottery | !createlottery (nome do sorteio) [(quantidade de ganhadores)]              | Cria um sorteio                                        |
 | !deletelottery | !deletelottery (nome do sorteio)                                           | Apaga o sorteio                                        |
-| !lotterywinner | !lotterywinner (nome do sorteio)                                           | Pega o ganhador do sorteio                            |
-| !addtm         | !addtm (nome da mensagem)[(tempo em minutos)]=(Mensagem que será exibida)  | Cria uma mensagem que será enviada de tempos em tempos |
+| !lotterywinner | !lotterywinner (nome do sorteio)                                           | seleciona o ganhador do sorteio                            |
+| !addtm         | !addtm (nome da mensagem)[(tempo em minutos)]=(Mensagem que será exibida)  | Cria uma mensagem que será enviada periodicamente |
 | !rmtm          | !rmtm (nome da mensagem)                                                   | Apaga a mensagem criada                                |
 
 
-**OBS:** não esqueça de apagar os sorteios após finalizado, os sorteios tem o tempo maximo de duração de 30 dias após isso serão finalizados e apagados automaticamente e não gerando um ganhador.
+**OBS:**  Não se esqueçã de apagar os sorteios após finalizá-los. Os soretios têm um tempo maximo de duração de 30 dias; após esse periodo serão finalizados e apagados automaticamente, sem gerar um ganhador.
 
 
 ### Comandos Globais
-Esses comandos serão reconhecidos em qualquer chat.
+Os comandos globais são reconhecidos em qualquer chat.
 
 
-| Comado                    | Saída                                            |
-| :------------------------ | :----------------------------------------------- |
-| !list                     | Mostra todos os comandos disponíveis para o chat |
-| !ticket (nome do sorteio) | Usado para entrar em um sorteio aberto no canal  |
+| Comado                    | Saída                                               |
+| :------------------------ | :-------------------------------------------------- |
+| !list                     | Exibe todos os comandos disponíveis para o chat     |
+| !ticket (nome do sorteio) | Permite a participação em um sorteio aberto no chat |
 
 
-**OBS**: se você criar um comando com o mesmo nome em seu canal os comandos globais serão substituídos pelo comando cadastrado no seu canal e perderão seu função, mas apenas em seu canal.
+**OBS**: Caso você crie um comando com mesmo nome em seu canal, os comandos globais serão substituido pelo comando cadastrdo no seu canal, perdendo sua função original, mas apenas no seu canal.
 
 
 ### Formatação do Texto nos comandos
-Na hora da criação dos comandos deve ser usada a sintaxe abaixo para poder ter interações com o chat.
+Para criar comandos que interajam com o chat, utilize a seguinte sintaxe:
 
 | Comando   | exemplo                                          | Saída                                                  | OBS                                           |
 | :-------- | :----------------------------------------------- | :----------------------------------------------------- | :-------------------------------------------- |
-| {user}    |                                                  | Usuário que mandou a mensagem                          |                                               |
-| {user2}   |                                                  | Usuário marcado no comando                     |                                               |
-| {rnum}[x] | a chance é de {rnum}[insira o número que quiser] | Número aleatório entre 0 há o número que você escolheu | o número não pode ser maior que 2,100,000,000 |
-| {count}   |                                                  | inicia uma contagem começando em 0                     |                                               |
+| {user}    |                                                  | Usuário que enviou a mensagem                          |                                               |
+| {user2}   |                                                  | Usuário mencionado no mensagem                     |                                               |
+| {rnum}[x] | a chance é de {rnum}[insira o número que quiser] | Número aleatório entre 0 e o número escolhido | o número não pode ser maior que 2,100,000,000 |
+| {count}   |                                                  | inicia uma contagem a partir de 0                     |                                               |
 
 
 ## Contato
-Caso você tenha ideia de alguma função que gostaria que fosse implementada ou Caso tenha uma dúvida, necessite de ajuda ou tenha achado um bug por favor entre em contato por DM no [Twitter](https://twitter.com/LunaChan250),  ou wisper para a conta da Luna na [twitch](https://www.twitch.tv/lunachan250).
+Se você tiver sugestões de novas funcionalidade, dúvidas, precisar de ajuda ou encontar um bug, por favor entre em contato via DM no [Twitter](https://twitter.com/LunaChan250) ou envie uma mensagem privada para a conta da Luna na [twitch](https://www.twitch.tv/lunachan250).
 
 
 # Documentation in english (en) :us:
