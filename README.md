@@ -4,16 +4,27 @@
 
 ![image](./assets/img/Luna.png "Luna")
 
+![Static Badge](https://img.shields.io/badge/version-0.0.1_alpha-purple)
+![Static Badge](https://img.shields.io/badge/status-developing-green)
+
+
 </div>
 
 
-- [Documentação em portguês (pt-br) :brazil:](#documentação-ptbr)
+<br>
+<br>
 
 
+- [Documentação em portguês (pt-br) :brazil:](#documentação-pt-br)
 - [Documentation in english (en) :us:](#documentation-en)
 
 
-# Documentação-PTBR
+<br>
+<br>
+<br>
+
+
+# Documentação-PT-BR
 
 
 ## Sobre
@@ -99,6 +110,19 @@ Para criar comandos que interajam com o chat, utilize a seguinte sintaxe:
 
 ## Contato
 Se você tiver sugestões de novas funcionalidade, dúvidas, precisar de ajuda ou encontrar um bug, por favor entre em contato via DM no [Twitter](https://twitter.com/LunaChan250) ou envie uma mensagem privada para a conta da [Luna na twitch](https://www.twitch.tv/lunachan250).
+
+
+<br>
+
+
+[ :arrow_up: Voltar ao topo](#luna)
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
 
 
 # Documentation-EN
@@ -187,3 +211,16 @@ To create commands that interact with the chat, use the following syntax:
 
 ## Contact
 If you have suggestions for new features, questions, need help, or find a bug, please contact us via DM on [Twitter](https://twitter.com/LunaChan250) or send a private message to [Luna's account on Twitch](https://www.twitch.tv/lunachan250)
+
+
+<br>
+
+
+[ :arrow_up: back to top](#luna)
+
+
+<br>
+<br>
+<br>
+<br>
+<br>

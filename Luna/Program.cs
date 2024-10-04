@@ -12,7 +12,7 @@ namespace Luna
 				controller.BotStart();
 				controller.BotStop();
 				System.Threading.Thread.Sleep(300000);
-			}   
+			}
 		}
 	}
 }
