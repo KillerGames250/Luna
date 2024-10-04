@@ -123,7 +123,7 @@ If you request Luna to leave your channel, all of your data (commands, scheduled
 These commands will only be recognized if sent in [Luna's chat](https://www.twitch.tv/lunachan250).
 
 
-| Comando                     | Output                                      |
+| Command                     | Output                                      |
 | :-------------------------- | :------------------------------------------ |
 | !join                       | The bot joins the channel                   |
 | !leave                      | The bot leaves the channel                  |
@@ -164,7 +164,7 @@ Example: `` !addtm follow[30]=Don’t forget to follow!!! ``
 Global commands are recognized in any chat.
 
 
-| Comado                 | Saída                                               	|
+| Command                | Output                                              	|
 | :--------------------- | :--------------------------------------------------- |
 | !list                  | Displays all available commands for the chat     	|
 | !ticket (lottery name) | Allows participation in an open lottery in the chat 	|
