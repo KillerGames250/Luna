@@ -186,4 +186,4 @@ To create commands that interact with the chat, use the following syntax:
 
 
 ## Contact
-If you have suggestions for new features, questions, need help, or find a bug, please contact us via DM on Twitter or send a private message to [Luna's account on Twitch](https://www.twitch.tv/lunachan250)
+If you have suggestions for new features, questions, need help, or find a bug, please contact us via DM on [Twitter](https://twitter.com/LunaChan250) or send a private message to [Luna's account on Twitch](https://www.twitch.tv/lunachan250)
