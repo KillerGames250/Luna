@@ -14,7 +14,6 @@ namespace Luna.Chat
 		private Timer timer = new();
 		private Database db = new();
 		private Commands cmd = new();
-		private Translator translator = new();
 		private ConnectionCredentials credentials;
 		private TwitchClient client = new();
 		private TimerEvents timerEvents = new();
@@ -34,6 +33,7 @@ namespace Luna.Chat
 			client.OnError += Client_OnError;
 			client.OnUserBanned += Clinent_OnUserBanned;
 			client.OnMessageReceived += Client_OnMessageReceived;
+			client.DisableAutoPong = true;
 			client.Connect();
 			timer.Interval = 60000;
 			timer.Elapsed += OnTimerEvent;
@@ -53,14 +53,6 @@ namespace Luna.Chat
 
 		private void Client_OnMessageReceived(object sender, OnMessageReceivedArgs e)
 		{
-			if (!e.ChatMessage.Message.StartsWith('!'))
-			{
-				string message = translator.Translate(e.ChatMessage.Channel, e.ChatMessage.Message).ToString();
-				if (!message.Equals(""))
-				{
-					client.SendMessage(e.ChatMessage.Channel, message + $" .[By {e.ChatMessage.DisplayName}]");
-				}
-			}
 		}
 
 		private void Client_OnConnected(object sender, OnConnectedArgs e)

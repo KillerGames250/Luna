@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Luna.Events;
-using Luna.Chat;
 using Npgsql;
 using Luna.Settings;
 
@@ -146,33 +145,6 @@ namespace Luna.DataBase
 		public int TranlationDisable(string channel_id)
 		{
 			return Convert.ToInt32(PG_Read($"SELECT translation_disable('{channel_id}')"));
-		}
-
-		public List<ChannelLanguage> ChannelsWhereTranlationEnable()
-		{
-			List<ChannelLanguage> aux = new();
-			string temp = "";
-			try
-			{
-				Console.WriteLine("Start:");
-				connection.Open();
-				NpgsqlCommand command = new("SELECT translation_list_channel_language()", connection);
-				NpgsqlDataReader reader = command.ExecuteReader();
-				while (reader.Read())
-				{
-					temp = reader.GetString(0);
-					ChannelLanguage cl = new(temp.Substring(0, temp.IndexOf('¨')), temp.Substring(temp.IndexOf('¨') + 1, 2));
-					aux.Add(cl);
-				}
-				connection.Close();
-			}
-			catch (Exception e)
-			{
-				Console.WriteLine(e.ToString());
-			}
-			connection.Close();
-			Console.WriteLine("Done.");
-			return aux;
 		}
 
 		public int CreateLottery(string channel_id, string lottery_name, int winners)

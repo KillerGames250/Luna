@@ -20,16 +20,6 @@ namespace Luna.Chat
 			}
 		}
 
-		public static string TranslationMessageWhithoutSpacesFormat(string message)
-		{
-			return message.Replace(' ', '´');
-		}
-
-		public static string TranslationMessageNormalFormat(string message)
-		{
-			return message.Replace('´', ' ');
-		}
-
 		public static string MenssageFormat(string mensage, string user_name, string command, string channel)
 		{
 			Database db = new();

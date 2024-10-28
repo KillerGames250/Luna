@@ -52,27 +52,7 @@ namespace Luna.Chat
 					{
 						return "Error to disable";
 					}
-
-				case "enabletranslation":
-					if (Translator.AddChannelLanguage(user_name.ToLower(), user_id, command.Substring(command.IndexOf(' ') + 1, 5)) == 1)
-					{
-						return "Message translation is enabled in your channel";
-					}
-					else
-					{
-						return "Error to enable";
-					}
-
-				case "disabletranslation":
-					if (Translator.RemoveChannelLanguage(user_name.ToLower(), user_id) == 1)
-					{
-						return "Message translation is disabled in your channel";
-					}
-					else
-					{
-						return "Error to disable";
-					}
-
+					
 				default:
 					return " ";
 			}
